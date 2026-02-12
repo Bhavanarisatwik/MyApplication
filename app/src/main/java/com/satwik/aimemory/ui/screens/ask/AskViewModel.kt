@@ -1,15 +1,19 @@
 package com.satwik.aimemory.ui.screens.ask
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.satwik.aimemory.data.mock.MockData
 import com.satwik.aimemory.data.model.QueryResult
 import com.satwik.aimemory.data.model.QueryState
-import kotlinx.coroutines.delay
+import com.satwik.aimemory.data.model.SourceReference
+import com.satwik.aimemory.network.ApiGateway
+import com.satwik.aimemory.network.QueryResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class AskViewModel : ViewModel() {
 
@@ -33,14 +37,42 @@ class AskViewModel : ViewModel() {
         viewModelScope.launch {
             _queryState.value = QueryState.Searching
 
-            // Simulate semantic search delay (will be real API call in Phase 5)
-            delay(2000)
+            val response = ApiGateway.submitQuery(query)
 
-            val result = MockData.mockQueryResult.copy(query = query)
-            _queryState.value = QueryState.Success(result)
-            _queryHistory.value = listOf(result) + _queryHistory.value
-            _queryText.value = ""
+            if (response != null) {
+                val result = mapResponseToQueryResult(query, response)
+                _queryState.value = QueryState.Success(result)
+                _queryHistory.value = listOf(result) + _queryHistory.value
+                _queryText.value = ""
+            } else {
+                _queryState.value = QueryState.Error("Failed to get answer. Check backend connectivity.")
+            }
         }
+    }
+
+    private fun mapResponseToQueryResult(query: String, response: QueryResponse): QueryResult {
+        return QueryResult(
+            query = query,
+            answer = response.answer,
+            sourceReferences = response.sources.map { dto ->
+                SourceReference(
+                    summaryId = dto.summaryId,
+                    date = try {
+                        // Backend expected format: "2025-01-15T14:30:00"
+                         java.time.LocalDate.parse(dto.timestamp.substring(0, 10))
+                    } catch (e: Exception) {
+                        java.time.LocalDate.now()
+                    },
+                    hourLabel = try {
+                         val timePart = dto.timestamp.substring(11, 16) // "HH:mm"
+                         timePart
+                    } catch (e: Exception) {
+                        "Unknown"
+                    },
+                    relevanceScore = dto.relevance
+                )
+            }
+        )
     }
 
     fun clearQuery() {

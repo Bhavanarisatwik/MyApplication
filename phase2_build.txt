@@ -1,0 +1,62 @@
+﻿> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :app:parseDebugLocalResources
+> Task :app:desugarDebugFileDependencies
+> Task :app:checkDebugDuplicateClasses
+> Task :app:checkDebugAarMetadata
+> Task :app:generateDebugRFile
+> Task :app:mergeExtDexDebug
+> Task :app:compileDebugKotlin
+> Task :app:mergeLibDexDebug
+> Task :app:compileDebugNavigationResources
+> Task :app:mapDebugSourceSetPaths
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:mergeDebugResources
+> Task :app:processDebugMainManifest
+
+> Task :app:compileDebugKotlin FAILED
+
+> Task :app:processDebugManifest
+.\gradlew.bat : e: file:///C:/Users/satwi/AndroidStudioProjects/MyApp
+lication/app/src/main/java/com/satwik/aimemory/service/AudioCaptureSe
+rvice.kt:139:23 Unresolved reference 'create'.
+At line:1 char:1
++ .\gradlew.bat assembleDebug 2>&1 | Out-File -FilePath 
+phase2_build.tx ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (e: file:///C:/U...ren   
+ ce 'create'.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src
+/main/java/com/satwik/aimemory/service/AudioCaptureService.kt:140:41 
+Unresolved reference '_16K'.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src
+/main/java/com/satwik/aimemory/service/AudioCaptureService.kt:141:39 
+Unresolved reference '_320'.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRun
+ner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 6m 26s
+21 actionable tasks: 21 executed

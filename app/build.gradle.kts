@@ -18,12 +18,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "OPENCLAW_BASE_URL", "\"http://100.66.248.82:8000/\"")
+            buildConfigField("String", "OPENCLAW_TOKEN", "\"dev-token-placeholder\"")
+            buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"590748060441-krgc6vmu37foab9alj8d3qnbihroj71k.apps.googleusercontent.com\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "OPENCLAW_BASE_URL", "\"http://100.66.248.82:8000/\"")
+            buildConfigField("String", "OPENCLAW_TOKEN", "\"prod-token-placeholder\"")
+            buildConfigField("String", "GOOGLE_WEB_CLIENT_ID", "\"590748060441-krgc6vmu37foab9alj8d3qnbihroj71k.apps.googleusercontent.com\"")
         }
     }
 
@@ -34,6 +42,22 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/DEPENDENCIES"
+            excludes += "META-INF/LICENSE"
+            excludes += "META-INF/LICENSE.txt"
+            excludes += "META-INF/NOTICE"
+            excludes += "META-INF/NOTICE.txt"
+            excludes += "META-INF/INDEX.LIST"
+            excludes += "META-INF/*.SF"
+            excludes += "META-INF/*.DSA"
+            excludes += "META-INF/*.RSA"
+        }
     }
 }
 
@@ -65,6 +89,23 @@ dependencies {
     // Lifecycle
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Audio VAD
+    implementation(libs.android.vad.webrtc)
+
+    // Networking
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp.logging)
+
+    // Google Drive & Auth
+    implementation(libs.google.api.client.android)
+    implementation(libs.google.drive.api)
+    implementation(libs.google.http.jackson)
+    implementation(libs.play.services.auth)
+    implementation(libs.credential.manager)
+    implementation(libs.credential.manager.play)
+    implementation(libs.google.id)
 
     // Testing
     testImplementation(libs.junit)

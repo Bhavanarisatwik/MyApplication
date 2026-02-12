@@ -1,5 +1,10 @@
 package com.satwik.aimemory.ui.screens.listening
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
@@ -19,10 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.satwik.aimemory.data.model.MemorySummary
@@ -30,6 +39,7 @@ import com.satwik.aimemory.data.model.PipelineState
 import com.satwik.aimemory.ui.theme.*
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.math.max
 
 @Composable
 fun ListeningScreen(
@@ -38,6 +48,47 @@ fun ListeningScreen(
     val pipelineState by viewModel.pipelineState.collectAsStateWithLifecycle()
     val recentSummary by viewModel.recentSummary.collectAsStateWithLifecycle()
     val isServiceRunning by viewModel.isServiceRunning.collectAsStateWithLifecycle()
+    val pendingChunks by viewModel.pendingChunkCount.collectAsStateWithLifecycle()
+    val waveformAmplitudes by viewModel.waveformAmplitudes.collectAsStateWithLifecycle()
+
+    val context = LocalContext.current
+
+    // Track permission state
+    var hasMicPermission by remember {
+        mutableStateOf(
+            ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO)
+                    == PackageManager.PERMISSION_GRANTED
+        )
+    }
+
+    var hasNotificationPermission by remember {
+        mutableStateOf(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) ==
+                        PackageManager.PERMISSION_GRANTED
+            } else true
+        )
+    }
+
+    // Permission launchers
+    val micPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        hasMicPermission = granted
+        if (granted && hasNotificationPermission) {
+            viewModel.toggleListening()
+        }
+    }
+
+    val notificationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        hasNotificationPermission = granted
+        // Even if notification denied, we can still start the service
+        if (hasMicPermission) {
+            viewModel.toggleListening()
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -64,9 +115,44 @@ fun ListeningScreen(
             modifier = Modifier.padding(vertical = 24.dp)
         )
 
-        // Toggle Button
+        // Live Audio Waveform
+        if (isServiceRunning && waveformAmplitudes.isNotEmpty()) {
+            AudioWaveform(
+                amplitudes = waveformAmplitudes,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(64.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+        }
+
+        // Pending chunks indicator
+        if (pendingChunks > 0) {
+            Text(
+                text = "$pendingChunks chunk${if (pendingChunks > 1) "s" else ""} pending upload",
+                style = MaterialTheme.typography.labelSmall,
+                color = WarmAmber,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+        }
+
+        // Toggle Button with permission handling
         FloatingActionButton(
-            onClick = { viewModel.toggleListening() },
+            onClick = {
+                if (isServiceRunning) {
+                    // Stop service
+                    viewModel.toggleListening()
+                } else {
+                    // Check permissions before starting
+                    if (!hasMicPermission) {
+                        micPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                    } else if (!hasNotificationPermission && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    } else {
+                        viewModel.toggleListening()
+                    }
+                }
+            },
             containerColor = if (isServiceRunning) ErrorRed.copy(alpha = 0.8f) else AccentTeal,
             contentColor = Color.White,
             modifier = Modifier.size(64.dp)
@@ -324,6 +410,46 @@ private fun RecentSummaryCard(summary: MemorySummary) {
                     color = TextMuted
                 )
             }
+        }
+    }
+}
+
+// ── Live Audio Waveform ───────────────────────────
+@Composable
+private fun AudioWaveform(
+    amplitudes: List<Float>,
+    modifier: Modifier = Modifier
+) {
+    val barCount = amplitudes.size
+    if (barCount == 0) return
+
+    Canvas(modifier = modifier) {
+        val barWidth = 6.dp.toPx()
+        val gap = 2.dp.toPx()
+        val totalBarWidth = barWidth + gap
+        val centerY = size.height / 2f
+
+        // Draw from right to left (newest on right)
+        val maxBars = (size.width / totalBarWidth).toInt()
+        val startIndex = max(0, barCount - maxBars)
+
+        for (i in startIndex until barCount) {
+            val x = (i - startIndex) * totalBarWidth
+            val amplitude = amplitudes[i].coerceIn(0f, 1f)
+
+            // Scale amplitude for visual impact (sqrt makes small values more visible)
+            val scaledAmp = kotlin.math.sqrt(amplitude) * 0.9f + 0.05f
+            val barHeight = scaledAmp * size.height
+
+            val alpha = (0.3f + amplitude * 0.7f).coerceIn(0.3f, 1f)
+
+            // Draw bar centered vertically
+            drawRoundRect(
+                color = AccentTeal.copy(alpha = alpha),
+                topLeft = Offset(x, centerY - barHeight / 2f),
+                size = Size(barWidth, barHeight),
+                cornerRadius = CornerRadius(2.dp.toPx(), 2.dp.toPx())
+            )
         }
     }
 }

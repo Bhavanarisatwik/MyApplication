@@ -1,0 +1,85 @@
+﻿> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :app:parseDebugLocalResources
+> Task :app:desugarDebugFileDependencies
+> Task :app:checkDebugDuplicateClasses
+> Task :app:generateDebugRFile
+> Task :app:checkDebugAarMetadata
+> Task :app:compileDebugKotlin
+> Task :app:mergeExtDexDebug
+
+> Task :app:compileDebugKotlin
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/DriveStorageService.kt:5:8 'class GoogleSignInAccount : AbstractSafeParcelable, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/DriveStorageService.kt:9:8 'class JacksonFactory : JsonFactory' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/DriveStorageService.kt:42:29 'class GoogleSignInAccount : AbstractSafeParcelable, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/DriveStorageService.kt:51:13 'class JacksonFactory : JsonFactory' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:5:8 'class GoogleSignIn : Any' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:6:8 'class GoogleSignInAccount : AbstractSafeParcelable, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:7:8 'class GoogleSignInClient : GoogleApi<GoogleSignInOptions!>' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:8:8 'class GoogleSignInOptions : AbstractSafeParcelable, Api.ApiOptions.Optional, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:32:52 'class GoogleSignInAccount : AbstractSafeParcelable, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:33:35 'class GoogleSignInAccount : AbstractSafeParcelable, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:35:31 'class GoogleSignInClient : GoogleApi<GoogleSignInOptions!>' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:40:37 'class GoogleSignInOptions : AbstractSafeParcelable, Api.ApiOptions.Optional, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:41:16 'class GoogleSignInOptions : AbstractSafeParcelable, Api.ApiOptions.Optional, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:41:44 'class GoogleSignInOptions : AbstractSafeParcelable, Api.ApiOptions.Optional, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:51:38 'class GoogleSignInClient : GoogleApi<GoogleSignInOptions!>' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:53:28 'class GoogleSignIn : Any' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:63:23 'class GoogleSignIn : Any' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:65:28 'class GoogleSignIn : Any' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/drive/GoogleSignInManager.kt:81:34 'class GoogleSignInAccount : AbstractSafeParcelable, ReflectedParcelable' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/ui/screens/settings/SettingsViewModel.kt:8:8 'class GoogleSignIn : Any' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/ui/screens/settings/SettingsViewModel.kt:91:24 'class GoogleSignIn : Any' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/ui/theme/Theme.kt:41:20 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/src/main/java/com/satwik/aimemory/ui/theme/Theme.kt:42:20 'var navigationBarColor: Int' is deprecated. Deprecated in Java.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:mergeLibDexDebug
+> Task :app:compileDebugNavigationResources
+> Task :app:mapDebugSourceSetPaths
+> Task :app:mergeDebugJavaResource FAILED
+> Task :app:mergeDebugResources
+.\gradlew.bat : 
+At line:1 char:1
++ .\gradlew.bat assembleDebug 2>&1 | Out-File -FilePath 
+phase4_build.tx ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], Remote 
+   Exception
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:mergeDebugJavaResource'.
+> A failure occurred while executing 
+com.android.build.gradle.internal.tasks.MergeJavaResWorkAction
+   > 2 files found with path 'META-INF/INDEX.LIST' from inputs:
+      - com.google.auth:google-auth-library-oauth2-http:1.23.0/go
+ogle-auth-library-oauth2-http-1.23.0.jar
+      - com.google.auth:google-auth-library-credentials:1.23.0/go
+ogle-auth-library-credentials-1.23.0.jar
+     Adding a packaging block may help, please refer to
+     https://developer.android.com/reference/tools/gradle-api/com
+/android/build/api/dsl/Packaging
+     for more information
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by 
+Develocity).
+> Get more help at https://help.gradle.org.
+
+21 actionable tasks: 21 executed
+BUILD FAILED in 7m 39s
