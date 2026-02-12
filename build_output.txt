@@ -1,0 +1,91 @@
+﻿> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugAssets
+> Task :app:parseDebugLocalResources
+> Task :app:compressDebugAssets
+> Task :app:generateDebugRFile
+> Task :app:checkDebugDuplicateClasses
+> Task :app:desugarDebugFileDependencies
+> Task :app:compileDebugKotlin
+> Task :app:mergeExtDexDebug
+
+> Task :app:compileDebugKotlin FAILED
+.\gradlew.bat : e: file:///C:/Users/satwi/AndroidStudioProjects/MyA
+pplication/app/src/main/java/com/satwik/aimemory/ui/screens/ask/Ask
+RetrieveScreen.kt:87:25 Unresolved reference 'QueryHistoryList'.
+At line:1 char:1
++ .\gradlew.bat assembleDebug 2>&1 | Out-File -FilePath 
+build_output.tx ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (e: file:///C:/U...ryH 
+   istoryList'.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/ask/AskRetrieveScreen.k
+t:349:14 Unresolved reference 'clip'.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:149:21 Unresolved reference 'animateColorAsState'.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:158:25 Cannot infer type for this parameter. Specify it 
+explicitly.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:169:26 Argument type mismatch: actual type is 'List<Any>', 
+but 'List<Color>' was expected.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:170:35 No parameter with name 'alpha' found.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:171:35 No parameter with name 'alpha' found.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:184:26 Argument type mismatch: actual type is 'List<Any>', 
+but 'List<Color>' was expected.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:185:35 No parameter with name 'alpha' found.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:186:35 No parameter with name 'alpha' found.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:199:26 Argument type mismatch: actual type is 
+'List<AnimationState<Float, AnimationVector1D>>', but 
+'List<Color>' was expected.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:200:35 No parameter with name 'alpha' found.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:201:35 No parameter with name 'alpha' found.
+e: file:///C:/Users/satwi/AndroidStudioProjects/MyApplication/app/s
+rc/main/java/com/satwik/aimemory/ui/screens/listening/ListeningScre
+en.kt:202:35 No parameter with name 'alpha' found.
+
+12 actionable tasks: 12 executed
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerR
+unner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkActio
+n
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 3m 5s
