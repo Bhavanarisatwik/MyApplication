@@ -1,0 +1,23 @@
+UI Framework
+The UI must be built using Jetpack Compose. The design requires rich, fluid, state-driven animations such as breathing orbs, waveform visualizations, fading timeline cards, and semantic search transitions. Compose’s declarative model is essential to synchronize UI state with the backend pipeline stages like listening, buffering, summarizing, and retrieving. XML Views are not suitable because they would make complex animation orchestration and dynamic state transitions harder to manage and less maintainable over time.
+
+OpenClaw Backend
+OpenClaw will be a self-hosted orchestration service deployed on a VPS. It will function as a secure stateless proxy with ephemeral in-memory buffering. It will not permanently store audio, transcripts, or summaries. Its responsibilities include receiving audio chunks from the Android app, securely calling Sarvam AI STT, temporarily buffering transcripts for up to one hour, triggering summarization using configured LLM endpoints, and returning structured summaries back to the mobile client. After summarization is completed and acknowledged, all buffered transcripts must be cleared from memory. The base URL and exact API contract will be defined during backend implementation, but the expected pattern is a RESTful JSON API with endpoints for audio upload, summary retrieval, and semantic query answering.
+
+Sarvam AI Usage
+Sarvam AI API keys must exist only on the OpenClaw server and must never be embedded in the Android application. The Android app will send audio only to OpenClaw, and OpenClaw will call Sarvam AI internally. This ensures secure credential handling, centralized retry logic, and consistent orchestration. The app will never directly interact with Sarvam AI endpoints.
+
+Google Drive Integration
+The system will use user-owned Google Drive storage via OAuth 2.0 authentication. Each user’s summaries will be stored in their personal Drive account under a dedicated application folder. This preserves full data ownership and privacy. A Google Cloud project with Drive API enabled will be required. OAuth client credentials will be configured for the Android app, and SHA-1 fingerprints and package names will be provided during integration. The server will not store persistent memory artifacts; only the user’s Drive will act as long-term storage.
+
+Voice Activity Detection Choice
+The preferred VAD implementation is WebRTC VAD running on-device. It is lightweight, efficient, and suitable for continuous background listening without excessive battery drain. ML-based VAD solutions like Silero are more accurate but heavier and not necessary for the initial version. Android’s built-in silence detection is insufficiently precise for reliable speech segmentation, so WebRTC VAD is the chosen baseline.
+
+Audio Format and Chunking Strategy
+Audio should be captured in mono 16 kHz PCM format and transmitted as WAV files to ensure compatibility with Sarvam AI STT processing. Speech segments should be dynamically chunked based on VAD silence thresholds rather than fixed durations. However, a soft maximum segment length of approximately 30 seconds should be enforced to prevent extremely long buffers. These segments will then be aggregated into a rolling one-hour transcript window inside OpenClaw for summarization.
+
+Scope and Implementation Phasing
+The goal is to build the complete application end to end, including UI, foreground audio capture with VAD, OpenClaw integration, Google Drive upload of summaries, and retrieval interface. However, development should be phased logically. First, the UI shell and state architecture should be implemented in Jetpack Compose. Second, the audio capture and VAD pipeline should be integrated. Third, the OpenClaw API orchestration should be connected. Fourth, Google Drive OAuth storage should be added. Finally, the semantic retrieval interface and question answering flow should be implemented. This phased approach ensures stable layering and easier debugging.
+
+OpenClaw Technical Stack
+OpenClaw will be a self-hosted service built using a backend framework capable of handling asynchronous requests and in-memory buffering, such as Python with FastAPI or Node.js with an event-driven architecture. It must support non-blocking audio upload endpoints, async calls to Sarvam AI, scheduled hourly summarization triggers, and stateless query endpoints for semantic retrieval. The exact framework can be chosen during backend implementation, but it must prioritize low-latency orchestration, secure credential management, and zero persistent storage of sensitive conversational data.
